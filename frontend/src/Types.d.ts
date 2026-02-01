@@ -27,6 +27,7 @@ export interface Doctor {
   consultationFee: number;
   bio: string;
   availableSlots: string;
+  queue: number;
   clinic: Clinic;
   isAvailable: boolean;
 }

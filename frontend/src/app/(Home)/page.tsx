@@ -12,6 +12,7 @@ import {
   IconMail,
   IconMessage,
 } from "@tabler/icons-react";
+import Link from "next/link";
 export default function HomePage() {
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
@@ -46,10 +47,12 @@ export default function HomePage() {
               zero-error booking engine. Reduce waiting times by up to 60%.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <button className="btn btn-primary btn-lg gap-2 text-white">
+              <Link href={"/login"} className="btn btn-primary btn-lg gap-2">
                 Book Appointment <IconArrowRight size={20} />
-              </button>
-              <button className="btn btn-outline btn-lg">View Hospitals</button>
+              </Link>
+              <Link href={"/sign-up"} className="btn btn-outline btn-lg">
+                View Hospitals
+              </Link>
             </div>
           </motion.div>
 

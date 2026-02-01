@@ -108,7 +108,7 @@ const ClinicCard = ({
                 Queue
               </span>
               <span className="text-sm font-bold flex items-center gap-1">
-                <IconUsers size={14} /> 12 patients
+                <IconUsers size={14} /> {doctor?.queue} patients
               </span>
             </div>
             <div className="flex flex-col border-l border-base-300 pl-3">
@@ -189,58 +189,6 @@ export default function ClinicDiscovery() {
     initFetch();
   }, []);
 
-  // Inside ClinicDiscovery component
-  const handleRazorpayPayment = async (
-    appointmentId: string,
-    amount: number,
-  ) => {
-    try {
-      // 1. Create Order on Backend
-      const { data: order } = await axios.post(
-        "http://localhost:8080/api/payments/create-order",
-        {
-          appointmentId,
-          amount: amount * 100, // Razorpay expects paise
-          currency: "INR",
-        },
-      );
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        name: "Clinic Connect",
-        description: `Appointment with ${selectedDoctor?.user.name}`,
-        order_id: order.razorpayOrderId,
-        handler: async (response: any) => {
-          // 2. Verify Payment on Backend
-          try {
-            await axios.post("http://localhost:8080/api/payments/verify", {
-              razorpayOrderId: response.razorpay_order_id,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpaySignature: response.razorpay_signature,
-              appointmentId: appointmentId,
-            });
-            toast.success("Payment Successful!");
-            setActiveView("DISCOVER");
-            resetBookingState();
-          } catch (err) {
-            toast.error("Payment verification failed");
-          }
-        },
-        prefill: {
-          name: bookingFor === "SELF" ? "User" : patientDetails.name,
-          contact: bookingFor === "SELF" ? "" : patientDetails.phone,
-        },
-        theme: { color: "#570df8" },
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      toast.error("Could not initiate payment");
-    }
-  };
   useEffect(() => {
     if (appointmentType === "ONLINE") {
       setPaymentMode("ONLINE");
@@ -256,7 +204,10 @@ export default function ClinicDiscovery() {
   const bookAppointment = async () => {
     if (!selectedDoctor) return;
 
-    if (appointmentType === "ONLINE" && paymentMode === "ONLINE") {
+    if (
+      (appointmentType === "ONLINE" && paymentMode === "ONLINE") ||
+      (appointmentType === "IN_PERSON" && paymentMode === "ONLINE")
+    ) {
       await initiateOnlinePayment();
     } else {
       await createAppointment(); // IN_PERSON flow
@@ -301,7 +252,7 @@ export default function ClinicDiscovery() {
     try {
       // 1️⃣ Create Razorpay order (NO appointment yet)
       const { data: order } = await axios.post(
-        "/spring-server/api/payments/create-order",
+        "/payment-service/api/payments/create-order",
         {
           amount: selectedDoctor!.consultationFee * 100,
           currency: "INR",
@@ -314,13 +265,13 @@ export default function ClinicDiscovery() {
         currency: order.currency,
         name: "Clinic Way",
         description: `Appointment with ${selectedDoctor?.name}`,
-        order_id: order.razorpayOrderId,
+        order_id: order.orderId,
 
         handler: async (response: any) => {
           try {
             // 2️⃣ Verify payment
             const verifyRes = await axios.post(
-              "/spring-server/api/payments/verify",
+              "/payment-service/api/payments/verify",
               {
                 razorpayOrderId: response.razorpay_order_id,
                 razorpayPaymentId: response.razorpay_payment_id,
@@ -588,7 +539,9 @@ export default function ClinicDiscovery() {
                     </div>
                     <div>
                       <p className="text-sm opacity-60">Current Queue</p>
-                      <p className="font-bold">12 patients waiting</p>
+                      <p className="font-bold">
+                        {selectedDoctor.queue} patients waiting
+                      </p>
                       <p className="text-xs opacity-60">
                         Avg. wait: 15 mins/patient
                       </p>
@@ -614,7 +567,8 @@ export default function ClinicDiscovery() {
                 <div>
                   <p className="font-semibold">Estimated Wait Time</p>
                   <p className="text-sm opacity-80">
-                    Approximately 3 hours based on current queue
+                    Approximately {selectedDoctor.queue * 15} minutes based on
+                    current queue
                   </p>
                 </div>
               </div>
@@ -921,7 +875,9 @@ export default function ClinicDiscovery() {
                     </div>
                     <div className="flex justify-between">
                       <span className="opacity-70">Current Queue</span>
-                      <span className="font-semibold">12 patients</span>
+                      <span className="font-semibold">
+                        {selectedDoctor?.queue} patients
+                      </span>
                     </div>
                     <div className="divider my-2"></div>
                     <div className="flex justify-between text-lg">

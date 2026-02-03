@@ -18,6 +18,7 @@ public class DoctorListResponse {
   private String phone;
   private String profileImage;
   private String specialization;
+  private Long queue;
   private String licenseNumber;
   private String bio;
   private Double consultationFee;

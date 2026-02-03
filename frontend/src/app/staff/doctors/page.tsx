@@ -249,6 +249,7 @@ export default function ManageDoctors() {
       )}
 
       {/* Modal */}
+<<<<<<< HEAD
      {showModal && (
   <div className="modal modal-open">
     <div className="modal-box max-w-2xl border border-base-300 shadow-2xl">
@@ -395,6 +396,155 @@ export default function ManageDoctors() {
     </div>
   </div>
 )}
+=======
+      {showModal && (
+        <div className="modal modal-open">
+          <div className="modal-box max-w-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-black">Register Doctor</h3>
+              <button
+                className="btn btn-sm btn-circle btn-ghost"
+                onClick={() => setShowModal(false)}
+              >
+                <IconCircleX />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddDoctor} className="grid gap-4">
+              <input
+                className="input input-bordered"
+                placeholder="Full Name"
+                value={doctor.user.name}
+                onChange={(e) =>
+                  setDoctor((p) => ({
+                    ...p,
+                    user: { ...p.user, name: e.target.value },
+                  }))
+                }
+                required
+              />
+
+              <input
+                className="input input-bordered"
+                placeholder="Email"
+                type="email"
+                value={doctor.user.email}
+                onChange={(e) =>
+                  setDoctor((p) => ({
+                    ...p,
+                    user: { ...p.user, email: e.target.value },
+                  }))
+                }
+                required
+              />
+
+              <input
+                className="input input-bordered"
+                placeholder="Phone"
+                value={doctor.user.phone}
+                onChange={(e) =>
+                  setDoctor((p) => ({
+                    ...p,
+                    user: { ...p.user, phone: e.target.value },
+                  }))
+                }
+                required
+              />
+
+              <div className="input input-bordered">
+                <IconLock size={16} />
+                <input
+                  className="grow"
+                  type={isPasswordVisible ? "text" : "password"}
+                  placeholder="Password"
+                  value={doctor.user.password}
+                  onChange={(e) =>
+                    setDoctor((p) => ({
+                      ...p,
+                      user: { ...p.user, password: e.target.value },
+                    }))
+                  }
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsPasswordVisible((v) => !v)}
+                >
+                  {isPasswordVisible ? (
+                    <IconEyeOff size={16} />
+                  ) : (
+                    <IconEye size={16} />
+                  )}
+                </button>
+              </div>
+
+              <input
+                className="input input-bordered"
+                placeholder="Specialization"
+                value={doctor.specialization}
+                onChange={(e) =>
+                  setDoctor((p) => ({
+                    ...p,
+                    specialization: e.target.value,
+                  }))
+                }
+                required
+              />
+
+              <input
+                className="input input-bordered"
+                placeholder="License Number"
+                value={doctor.licenseNumber}
+                onChange={(e) =>
+                  setDoctor((p) => ({
+                    ...p,
+                    licenseNumber: e.target.value,
+                  }))
+                }
+                required
+              />
+
+              <input
+                className="input input-bordered"
+                type="number"
+                placeholder="Consultation Fee"
+                value={doctor.consultationFee}
+                onChange={(e) =>
+                  setDoctor((p) => ({
+                    ...p,
+                    consultationFee: Number(e.target.value),
+                  }))
+                }
+                required
+              />
+
+              <input
+                type="file"
+                className="file-input file-input-bordered"
+                accept="image/*"
+                onChange={(e) =>
+                  e.target.files &&
+                  uploadImage(e.target.files[0], doctor.user.name)
+                }
+              />
+
+              <div className="modal-action">
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary font-black">
+                  Register Doctor
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
     </div>
   );
 }

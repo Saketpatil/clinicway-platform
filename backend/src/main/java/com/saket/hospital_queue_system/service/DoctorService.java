@@ -186,7 +186,9 @@ public class DoctorService {
                     .taluka(doctor.getClinic().getTaluka())
                     .build();
         }
-
+        LocalDate today = LocalDate.now();
+        Long queueCount = (long) appointmentRepository.countByDoctorIdAndAppointmentDateAndStatusIn(doctor.getId(), today,
+                List.of(AppointmentStatus.BOOKED, AppointmentStatus.IN_PROGRESS));
         return DoctorListResponse.builder()
                 .id(doctor.getId())
                 .name(user.getName())
@@ -198,6 +200,7 @@ public class DoctorService {
                 .bio(doctor.getBio())
                 .consultationFee(doctor.getConsultationFee())
                 .availableSlots(doctor.getAvailableSlots())
+                .queue(queueCount)
                 .isAvailable(doctor.getIsAvailable())
                 .clinic(clinicInfo)
                 .build();

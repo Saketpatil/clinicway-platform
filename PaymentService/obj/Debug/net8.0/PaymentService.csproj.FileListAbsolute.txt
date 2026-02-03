@@ -1,0 +1,9 @@
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.csproj.AssemblyReference.cache
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\rpswa.dswa.cache.json
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.AssemblyInfoInputs.cache
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.AssemblyInfo.cs
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.csproj.CoreCompileInputs.cache
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.MvcApplicationPartsAssemblyInfo.cs
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.MvcApplicationPartsAssemblyInfo.cache
+D:\projects\hospital-queue-system\PaymentService\obj\Debug\net8.0\PaymentService.sourcelink.json

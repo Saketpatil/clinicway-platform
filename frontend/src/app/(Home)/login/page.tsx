@@ -91,7 +91,11 @@ export default function LoginPage() {
                 <IconMail className="opacity-30" size={20} />
                 <input
                   type="email"
+<<<<<<< HEAD
                   placeholder="Example@gmail.com"
+=======
+                  placeholder="name@example.com"
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
                   className="grow"
                   value={form.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}

@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         source: "/spring-server/:path*",
         destination: "http://localhost:8080/:path*",
       },
+      {
+        source: "/payment-service/:path*",
+        destination: "http://localhost:5182/:path*",
+      },
     ];
   },
 };

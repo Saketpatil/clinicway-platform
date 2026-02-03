@@ -108,7 +108,11 @@ const ClinicCard = ({
                 Queue
               </span>
               <span className="text-sm font-bold flex items-center gap-1">
+<<<<<<< HEAD
                 <IconUsers size={14} /> 12 patients
+=======
+                <IconUsers size={14} /> {doctor?.queue} patients
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
               </span>
             </div>
             <div className="flex flex-col border-l border-base-300 pl-3">
@@ -189,6 +193,7 @@ export default function ClinicDiscovery() {
     initFetch();
   }, []);
 
+<<<<<<< HEAD
   // Inside ClinicDiscovery component
   const handleRazorpayPayment = async (
     appointmentId: string,
@@ -241,6 +246,8 @@ export default function ClinicDiscovery() {
       toast.error("Could not initiate payment");
     }
   };
+=======
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
   useEffect(() => {
     if (appointmentType === "ONLINE") {
       setPaymentMode("ONLINE");
@@ -248,6 +255,7 @@ export default function ClinicDiscovery() {
   }, [appointmentType]);
 
   const filteredDoctors = doctors.filter((doc) => {
+<<<<<<< HEAD
   const docDistrict = doc?.clinic?.district;
   const docTaluka = doc?.clinic?.taluka;
 
@@ -256,11 +264,24 @@ export default function ClinicDiscovery() {
   
   return true;
 });
+=======
+    if (district && doc?.clinic?.district !== district) return false;
+    if (taluka && doc?.clinic?.taluka !== taluka) return false;
+    return true;
+  });
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
 
   const bookAppointment = async () => {
     if (!selectedDoctor) return;
 
+<<<<<<< HEAD
     if (appointmentType === "ONLINE" && paymentMode === "ONLINE") {
+=======
+    if (
+      (appointmentType === "ONLINE" && paymentMode === "ONLINE") ||
+      (appointmentType === "IN_PERSON" && paymentMode === "ONLINE")
+    ) {
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
       await initiateOnlinePayment();
     } else {
       await createAppointment(); // IN_PERSON flow
@@ -305,7 +326,11 @@ export default function ClinicDiscovery() {
     try {
       // 1️⃣ Create Razorpay order (NO appointment yet)
       const { data: order } = await axios.post(
+<<<<<<< HEAD
         "/spring-server/api/payments/create-order",
+=======
+        "/payment-service/api/payments/create-order",
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
         {
           amount: selectedDoctor!.consultationFee * 100,
           currency: "INR",
@@ -318,13 +343,21 @@ export default function ClinicDiscovery() {
         currency: order.currency,
         name: "Clinic Way",
         description: `Appointment with ${selectedDoctor?.name}`,
+<<<<<<< HEAD
         order_id: order.razorpayOrderId,
+=======
+        order_id: order.orderId,
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
 
         handler: async (response: any) => {
           try {
             // 2️⃣ Verify payment
             const verifyRes = await axios.post(
+<<<<<<< HEAD
               "/spring-server/api/payments/verify",
+=======
+              "/payment-service/api/payments/verify",
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
               {
                 razorpayOrderId: response.razorpay_order_id,
                 razorpayPaymentId: response.razorpay_payment_id,
@@ -592,7 +625,13 @@ export default function ClinicDiscovery() {
                     </div>
                     <div>
                       <p className="text-sm opacity-60">Current Queue</p>
+<<<<<<< HEAD
                       <p className="font-bold">12 patients waiting</p>
+=======
+                      <p className="font-bold">
+                        {selectedDoctor.queue} patients waiting
+                      </p>
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
                       <p className="text-xs opacity-60">
                         Avg. wait: 15 mins/patient
                       </p>
@@ -618,7 +657,12 @@ export default function ClinicDiscovery() {
                 <div>
                   <p className="font-semibold">Estimated Wait Time</p>
                   <p className="text-sm opacity-80">
+<<<<<<< HEAD
                     Approximately 3 hours based on current queue
+=======
+                    Approximately {selectedDoctor.queue * 15} minutes based on
+                    current queue
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
                   </p>
                 </div>
               </div>
@@ -925,7 +969,13 @@ export default function ClinicDiscovery() {
                     </div>
                     <div className="flex justify-between">
                       <span className="opacity-70">Current Queue</span>
+<<<<<<< HEAD
                       <span className="font-semibold">12 patients</span>
+=======
+                      <span className="font-semibold">
+                        {selectedDoctor?.queue} patients
+                      </span>
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
                     </div>
                     <div className="divider my-2"></div>
                     <div className="flex justify-between text-lg">

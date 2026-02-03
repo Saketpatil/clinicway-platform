@@ -27,6 +27,10 @@ export interface Doctor {
   consultationFee: number;
   bio: string;
   availableSlots: string;
+<<<<<<< HEAD
+=======
+  queue: number;
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
   clinic: Clinic;
   isAvailable: boolean;
 }

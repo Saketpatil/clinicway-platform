@@ -20,7 +20,11 @@ const Footer = () => {
         <p className="font-semibold">
           Smart Hospital Appointment Management System
         </p>
+<<<<<<< HEAD
         <p>Managing hospital appointments since 2026</p>
+=======
+        <p>Managing hospital appointments since 2025</p>
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
       </aside>
       <nav>
         <div className="grid grid-flow-col gap-6">
@@ -67,7 +71,11 @@ const Footer = () => {
         </div>
       </nav>
       <aside>
+<<<<<<< HEAD
         <p>Copyright © 2026 ClinicWay. All rights reserved.</p>
+=======
+        <p>Copyright © 2025 ClinicWay. All rights reserved.</p>
+>>>>>>> 65a72261390d8677aab882c9e30a96e25391fc96
       </aside>
     </footer>
   );
